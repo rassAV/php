@@ -6,13 +6,19 @@
     <table>
         <thead>
             <tr>
-                <th>Data</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Age</th>
+                <th>Email</th>
             </tr>
         </thead>
         <tbody>
             @foreach($data as $item)
                 <tr>
-                    <td>{{ $item }}</td>
+                    <td>{{ $item['name'] }}</td>
+                    <td>{{ $item['lastname'] }}</td>
+                    <td>{{ $item['age'] }}</td>
+                    <td>{{ $item['email'] }}</td>
                 </tr>
             @endforeach
         </tbody>

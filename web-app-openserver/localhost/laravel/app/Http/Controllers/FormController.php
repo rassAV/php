@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class FormController extends Controller
 {
@@ -14,15 +15,28 @@ class FormController extends Controller
 
     public function submit(Request $request)
     {
-        $request->validate([
-            'data' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|regex:/^[a-zA-Z]+$/|min:1|max:50',
+            'lastname' => 'required|regex:/^[a-zA-Z]+$/|min:1|max:50',
+            'age' => 'required|integer|min:18|max:200',
+            'email' => 'required|email|max:255',
         ]);
 
-        $data = $request->input('data');
+        if ($validator->fails()) {
+            return redirect('/')->with('message', 'Data incorrect!');
+        }
+    
+        $data = [
+            'name' => $request->input('name'),
+            'lastname' => $request->input('lastname'),
+            'age' => $request->input('age'),
+            'email' => $request->input('email'),
+        ];
+
         $filename = 'data_' . uniqid() . '.json';
         Storage::put($filename, json_encode($data));
 
-        return redirect('/')->with('success', 'Data submitted successfully!');
+        return redirect('/')->with('message', 'Data submitted successfully!');
     }
 
     public function showData()
