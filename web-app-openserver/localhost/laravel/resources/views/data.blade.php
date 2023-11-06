@@ -1,5 +1,16 @@
 @extends('layouts.app')
-
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    td, th {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    .container {
+        margin: 30px;
+    }
+</style>
 @section('content')
     <h2>Data Page</h2>
 
@@ -22,5 +33,5 @@
                 </tr>
             @endforeach
         </tbody>
-    </table><br>
+    </table>
 @endsection
