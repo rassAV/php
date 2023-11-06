@@ -13,6 +13,11 @@ class FormController extends Controller
         return view('index');
     }
 
+    public function form()
+    {
+        return view('form');
+    }
+
     public function submit(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -23,7 +28,7 @@ class FormController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/')->with('message', 'Data incorrect!');
+            return redirect('/form')->with('message', 'Data incorrect!');
         }
     
         $data = [
@@ -36,7 +41,7 @@ class FormController extends Controller
         $filename = 'data_' . uniqid() . '.json';
         Storage::put($filename, json_encode($data));
 
-        return redirect('/')->with('message', 'Data submitted successfully!');
+        return redirect('/form')->with('message', 'Data submitted successfully!');
     }
 
     public function showData()
